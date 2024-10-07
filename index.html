@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Facebook Chat App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 2em; /* เพิ่มขนาดตัวอักษร */
+        }
+        #container {
+            width: 600px; /* เพิ่มขนาด 2 เท่า */
+            border: 2px solid #ccc; /* เพิ่มขนาดเส้น */
+            padding: 40px; /* เพิ่ม padding 2 เท่า */
+            margin: 40px auto; /* เพิ่ม margin 2 เท่า */
+        }
+        #box {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 400px; /* เพิ่มความสูง 2 เท่า */
+            border: 2px solid #000; /* เพิ่มขนาดเส้น */
+            text-align: center;
+            white-space: pre-wrap;
+        }
+        #inputBox {
+            width: calc(100% - 44px); /* เพิ่มขนาด 2 เท่า */
+            padding: 20px; /* เพิ่ม padding 2 เท่า */
+            margin-top: 20px; /* เพิ่ม margin 2 เท่า */
+            border: 2px solid #ccc; /* เพิ่มขนาดเส้น */
+        }
+        #sendButton {
+            display: block;
+            width: 50%; /* ลดขนาดลง 50% */
+            padding: 10px; /* ลด padding ลง 50% */
+            margin-top: 10px; /* ลด margin ลง 50% */
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            font-size: 0.5em; /* ลดขนาดตัวอักษรลง 50% */
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="box"></div>
+        <input type="text" id="inputBox" placeholder="ใส่ข้อความที่นี่...">
+        <button id="sendButton">ส่งข้อความ</button>
+    </div>
+
+    <script>
+        const inputBox = document.getElementById('inputBox');
+        const box = document.getElementById('box');
+        const sendButton = document.getElementById('sendButton');
+
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function displayText() {
+            box.innerHTML = '';
+            const text = inputBox.value;
+            for (let char of text) {
+                const span = document.createElement('span');
+                span.innerText = char;
+                span.style.color = getRandomColor();
+                box.appendChild(span);
+            }
+            inputBox.value = '';
+        }
+
+        sendButton.addEventListener('click', displayText);
+
+        inputBox.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter' || event.key === 'Return') {
+                displayText();
+            }
+        });
+    </script>
+</body>
+</html>
